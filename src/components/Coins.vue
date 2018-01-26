@@ -1,24 +1,30 @@
 <template>
   <div>
     <div v-if="posts && posts.length">
-      <div id="headings">
-        <h2>#</h2>
-        <h2>Name</h2>
-        <h2>Market Cap</h2>
-        <h2>Price</h2>
-        <h2>Change 1h</h2>
-        <h2>Change 24h</h2>
-        <h2>Change 7d</h2>
-      </div>
-      <div v-for="post of posts" id="grid">
-        <p>{{post.rank}}</p>
-        <p>{{post.name}}</p>
-        <p>{{post.market_cap_usd}}</p>
-        <p>{{post.price_usd}} $</p>
-        <p>{{post.percent_change_1h}}%</p>
-        <p>{{post.percent_change_24h}}%</p>
-        <p>{{post.percent_change_7d}}%</p>
-      </div>
+      <table id="example" class="display" cellspacing="0" width="100%">
+        <thead>
+        <tr>
+          <th>#</th>
+          <th>Name</th>
+          <th>Market Cap</th>
+          <th>Price</th>
+          <th>Change 1h</th>
+          <th>Change 24h</th>
+          <th>Change 7d</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr v-for="post of posts">
+          <td>{{post.rank}}</td>
+          <td>{{post.name}}</td>
+          <td>{{post.market_cap_usd}}</td>
+          <td>{{post.price_usd}} $</td>
+          <td>{{post.percent_change_1h}}%</td>
+          <td>{{post.percent_change_24h}}%</td>
+          <td>{{post.percent_change_7d}}%</td>
+        </tr>
+        </tbody>
+      </table>
     </div>
 
     <div v-if="errors && errors.length">
@@ -52,10 +58,9 @@
         });
     },
   };
+  $(document).ready(() => {
+    $('#example').DataTable();
+  });
 </script>
 <style>
-  #headings, #grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-  }
 </style>
