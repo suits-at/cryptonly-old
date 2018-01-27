@@ -96,6 +96,10 @@ const webpackConfig = merge(baseWebpackConfig, {
         from: path.resolve(__dirname, '../static'),
         to: config.build.assetsSubDirectory,
         ignore: ['.*']
+      },
+      // copy .htaccess to root
+      {
+        from: path.resolve(__dirname, '../static/.htaccess'),
       }
     ]),
     // service worker caching
