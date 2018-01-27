@@ -56,17 +56,17 @@
         .then((response) => {
           // JSON responses are automatically parsed.
           this.posts = response.data;
+          $(document).ready(() => {
+            $('#marketCap').DataTable({
+              responsive: true,
+            });
+          });
         })
         .catch((e) => {
           this.errors.push(e);
         });
     },
   };
-  $(document).ready(() => {
-    $('#marketCap').DataTable({
-      responsive: true,
-    });
-  });
 </script>
 <style>
   #container{
