@@ -1,27 +1,34 @@
 <template>
   <div id="container">
-    <div v-if="posts && posts.length">
+    <div v-if="globals" id="globals">
+      <ul id="globalsList">
+        <li><strong>Total Market Cap</strong> ${{globals.total_market_cap_usd}}</li>
+        <li><strong>24h Volume</strong> ${{globals.total_24h_volume_usd}}</li>
+        <li><strong>BTC Dominance</strong> {{globals.bitcoin_percentage_of_market_cap}}%</li>
+      </ul>
+    </div>
+    <div v-if="coins && coins.length">
       <table id="marketCap" class="display" cellspacing="0" width="100%">
         <thead>
-        <tr>
+        <tr class="textRight">
           <th>#</th>
-          <th>Name</th>
+          <th class="textLeft">Name</th>
           <th>Price</th>
-          <th>Change 1h</th>
-          <th>Change 24h</th>
-          <th>Change 7d</th>
+          <th>1h</th>
+          <th>24h</th>
+          <th>7d</th>
           <th>Market Cap</th>
         </tr>
         </thead>
         <tbody>
-        <tr v-for="post of posts">
-          <td>{{post.rank}}</td>
-          <td>{{post.name}}</td>
-          <td>{{post.price_usd}} $</td>
-          <td>{{post.percent_change_1h}}%</td>
-          <td>{{post.percent_change_24h}}%</td>
-          <td>{{post.percent_change_7d}}%</td>
-          <td>{{post.market_cap_usd}}</td>
+        <tr v-for="coin of coins" class="textRight">
+          <td>{{coin.rank}}</td>
+          <td class="textLeft">{{coin.name}}</td>
+          <td>${{coin.price_usd}}</td>
+          <td>{{coin.percent_change_1h}}%</td>
+          <td>{{coin.percent_change_24h}}%</td>
+          <td>{{coin.percent_change_7d}}%</td>
+          <td>${{coin.market_cap_usd}}</td>
         </tr>
         </tbody>
       </table>
@@ -45,32 +52,57 @@
   export default {
     data() {
       return {
-        posts: [],
+        coins: [],
+        globals: [],
         errors: [],
       };
     },
 
     // Fetches posts when the component is created.
     created() {
-      axios.get('https://api.coinmarketcap.com/v1/ticker/')
-        .then((response) => {
-          // JSON responses are automatically parsed.
-          this.posts = response.data;
+      function getCoins() {
+        return axios.get('https://api.coinmarketcap.com/v1/ticker/?limit=500');
+      }
+
+      function getGlobals() {
+        return axios.get('https://api.coinmarketcap.com/v1/global/');
+      }
+
+      axios.all([getCoins(), getGlobals()])
+        .then(axios.spread((coins, globals) => {
+          this.coins = coins.data;
+          this.globals = globals.data;
           $(document).ready(() => {
             $('#marketCap').DataTable({
               responsive: true,
+              lengthMenu: [[100, 50, 25, 10, -1], [100, 50, 25, 10, 'All']],
             });
           });
-        })
+        }))
         .catch((e) => {
           this.errors.push(e);
         });
     },
   };
+
 </script>
 <style>
-  #container{
+  #container {
     max-width: 1200px;
     margin: 30px auto;
+  }
+  .textRight {
+    text-align: right;
+  }
+  .textLeft {
+    text-align: left;
+  }
+  #globals{
+    padding-bottom: 3rem;
+  }
+  #globalsList li{
+    list-style-type: none;
+    float: left;
+    margin-left: 10%;
   }
 </style>
