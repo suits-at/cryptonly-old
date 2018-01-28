@@ -27,9 +27,9 @@
           <td class="textLeft">{{coin.name}}</td>
           <td class="textLeft">{{coin.symbol}}</td>
           <td>${{coin.price_usd}}</td>
-          <td v-bind:class="{ positive: coin.percent_change_1h > 0, negative: coin.percent_change_1h < 0}">{{coin.percent_change_1h}}%</td>
-          <td v-bind:class="{ positive: coin.percent_change_24h > 0, negative: coin.percent_change_24h < 0}">{{coin.percent_change_24h}}%</td>
-          <td v-bind:class="{ positive: coin.percent_change_7d > 0, negative: coin.percent_change_7d < 0}">{{coin.percent_change_7d}}%</td>
+          <td><span v-bind:class="{ positive: coin.percent_change_1h > 0, negative: coin.percent_change_1h < 0}">{{coin.percent_change_1h}}%</span></td>
+          <td><span v-bind:class="{ positive: coin.percent_change_24h > 0, negative: coin.percent_change_24h < 0}">{{coin.percent_change_24h}}%</span></td>
+          <td><span v-bind:class="{ positive: coin.percent_change_7d > 0, negative: coin.percent_change_7d < 0}">{{coin.percent_change_7d}}%</span></td>
           <td>${{coin.market_cap_usd}}</td>
         </tr>
         </tbody>
