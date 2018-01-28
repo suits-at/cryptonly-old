@@ -12,7 +12,7 @@
         <thead>
         <tr class="textRight">
           <th>#</th>
-          <th class="textLeft">Name</th>
+          <th class="textLeft hideMobile">Name</th>
           <th class="textLeft">Symbol</th>
           <th>Price</th>
           <th>1h</th>
@@ -24,7 +24,7 @@
         <tbody>
         <tr v-for="coin of coins" class="textRight">
           <td>{{coin.rank}}</td>
-          <td class="textLeft">{{coin.name}}</td>
+          <td class="textLeft hideMobile">{{coin.name}}</td>
           <td class="textLeft">{{coin.symbol}}</td>
           <td>${{coin.price_usd}}</td>
           <td><span v-bind:class="{ positive: coin.percent_change_1h > 0, negative: coin.percent_change_1h < 0}">{{coin.percent_change_1h}}%</span></td>
@@ -112,5 +112,10 @@
   }
   .positive {
     color: limegreen;
+  }
+  @media only screen and (max-width: 575px) {
+    .hideMobile {
+      display: none;
+    }
   }
 </style>
