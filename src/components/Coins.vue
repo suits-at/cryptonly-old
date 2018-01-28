@@ -61,7 +61,7 @@
     // Fetches posts when the component is created.
     created() {
       function getCoins() {
-        return axios.get('https://api.coinmarketcap.com/v1/ticker/?limit=500');
+        return axios.get('https://api.coinmarketcap.com/v1/ticker/?limit=-1');
       }
 
       function getGlobals() {
