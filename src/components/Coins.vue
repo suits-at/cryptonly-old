@@ -50,7 +50,6 @@
   import 'datatables.net-responsive';
   import 'datatables.net-dt/css/jquery.dataTables.css';
   import 'datatables.net-responsive-dt/css/responsive.dataTables.min.css';
-  import 'datatables.net-buttons/js/buttons.colVis';
 
   export default {
     data() {
@@ -80,17 +79,11 @@
               responsive: true,
               lengthMenu: [[100, 50, 25, 10, -1], [100, 50, 25, 10, 'All']],
               dom: 'Bfrtip',
-              buttons: [
-                {
-                  extend: 'columnVisibility',
-                  text: 'Show all',
-                  visibility: true,
-                },
-                {
-                  extend: 'columnVisibility',
-                  text: 'Hide all',
-                  visibility: false,
-                },
+              columnDefs: [
+                { responsivePriority: 1, targets: 0 },
+                { responsivePriority: 2, targets: 2 },
+                { responsivePriority: 3, targets: 3 },
+                { responsivePriority: 3, targets: 5 },
               ],
             });
           });
