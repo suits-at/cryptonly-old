@@ -13,6 +13,7 @@
         <tr class="textRight">
           <th>#</th>
           <th class="textLeft">Name</th>
+          <th class="textLeft">Symbol</th>
           <th>Price</th>
           <th>1h</th>
           <th>24h</th>
@@ -24,6 +25,7 @@
         <tr v-for="coin of coins" class="textRight">
           <td>{{coin.rank}}</td>
           <td class="textLeft">{{coin.name}}</td>
+          <td class="textLeft">{{coin.symbol}}</td>
           <td>${{coin.price_usd}}</td>
           <td v-bind:class="{ positive: coin.percent_change_1h > 0, negative: coin.percent_change_1h < 0}">{{coin.percent_change_1h}}%</td>
           <td v-bind:class="{ positive: coin.percent_change_24h > 0, negative: coin.percent_change_24h < 0}">{{coin.percent_change_24h}}%</td>
