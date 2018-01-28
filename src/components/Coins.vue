@@ -25,9 +25,9 @@
           <td>{{coin.rank}}</td>
           <td class="textLeft">{{coin.name}}</td>
           <td>${{coin.price_usd}}</td>
-          <td>{{coin.percent_change_1h}}%</td>
-          <td>{{coin.percent_change_24h}}%</td>
-          <td>{{coin.percent_change_7d}}%</td>
+          <td v-bind:class="{ positive: coin.percent_change_1h > 0, negative: coin.percent_change_1h < 0}">{{coin.percent_change_1h}}%</td>
+          <td v-bind:class="{ positive: coin.percent_change_24h > 0, negative: coin.percent_change_24h < 0}">{{coin.percent_change_24h}}%</td>
+          <td v-bind:class="{ positive: coin.percent_change_7d > 0, negative: coin.percent_change_7d < 0}">{{coin.percent_change_7d}}%</td>
           <td>${{coin.market_cap_usd}}</td>
         </tr>
         </tbody>
@@ -97,12 +97,18 @@
   .textLeft {
     text-align: left;
   }
-  #globals{
+  #globals {
     padding-bottom: 3rem;
   }
-  #globalsList li{
+  #globalsList li {
     list-style-type: none;
     float: left;
     margin-left: 10%;
+  }
+  .negative {
+    color: red;
+  }
+  .positive {
+    color: limegreen;
   }
 </style>
