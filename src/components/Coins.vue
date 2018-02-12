@@ -78,7 +78,6 @@
             $('#marketCap').DataTable({
               responsive: true,
               lengthMenu: [[100, 50, 25, 10, -1], [100, 50, 25, 10, 'All']],
-              dom: 'Bfrtip',
               columnDefs: [
                 { responsivePriority: 1, targets: 0 },
                 { responsivePriority: 2, targets: 2 },
