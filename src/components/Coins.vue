@@ -14,7 +14,8 @@
           <th>#</th>
           <th class="textLeft">Name</th>
           <th class="textLeft">Symbol</th>
-          <th>Price</th>
+          <th>Price $</th>
+          <th>Price €</th>
           <th>1h</th>
           <th>24h</th>
           <th>7d</th>
@@ -26,11 +27,12 @@
           <td>{{coin.rank}}</td>
           <td class="textLeft">{{coin.name}}</td>
           <td class="textLeft">{{coin.symbol}}</td>
-          <td>${{coin.price_usd}}</td>
-          <td><span v-bind:class="{ positive: coin.percent_change_1h > 0, negative: coin.percent_change_1h < 0}">{{coin.percent_change_1h}}%</span></td>
-          <td><span v-bind:class="{ positive: coin.percent_change_24h > 0, negative: coin.percent_change_24h < 0}">{{coin.percent_change_24h}}%</span></td>
-          <td><span v-bind:class="{ positive: coin.percent_change_7d > 0, negative: coin.percent_change_7d < 0}">{{coin.percent_change_7d}}%</span></td>
-          <td>${{coin.market_cap_usd}}</td>
+          <td>{{coin.price_usd}}</td>
+          <td>{{coin.price_eur}}</td>
+          <td v-bind:class="{ positive: coin.percent_change_1h > 0, negative: coin.percent_change_1h < 0}">{{coin.percent_change_1h}}</td>
+          <td v-bind:class="{ positive: coin.percent_change_24h > 0, negative: coin.percent_change_24h < 0}">{{coin.percent_change_24h}}</td>
+          <td v-bind:class="{ positive: coin.percent_change_7d > 0, negative: coin.percent_change_7d < 0}">{{coin.percent_change_7d}}</td>
+          <td>{{coin.market_cap_usd}}</td>
         </tr>
         </tbody>
       </table>
@@ -63,11 +65,11 @@
     // Fetches posts when the component is created.
     created() {
       function getCoins() {
-        return axios.get('https://api.coinmarketcap.com/v1/ticker/?limit=-1');
+        return axios.get('https://api.coinmarketcap.com/v1/ticker/?convert=EUR&limit=-1');
       }
 
       function getGlobals() {
-        return axios.get('https://api.coinmarketcap.com/v1/global/');
+        return axios.get('https://api.coinmarketcap.com/v1/global/?convert=EUR');
       }
 
       axios.all([getCoins(), getGlobals()])
@@ -78,12 +80,30 @@
             $('#marketCap').DataTable({
               responsive: true,
               lengthMenu: [[100, 50, 25, 10, -1], [100, 50, 25, 10, 'All']],
+              language: {
+                decimal: '.',
+                thousands: ',',
+              },
               columnDefs: [
                 { responsivePriority: 1, targets: 0 },
                 { responsivePriority: 2, targets: 2 },
                 { responsivePriority: 3, targets: 3 },
                 { responsivePriority: 3, targets: 5 },
               ],
+              columns: [
+                { data: coins.rank },
+                { data: coins.name },
+                { data: coins.symbol },
+                { data: coins.price_usd, render: $.fn.dataTable.render.number(',', '.', 4, '$') },
+                { data: coins.price_eur, render: $.fn.dataTable.render.number(',', '.', 4, '€') },
+                { data: coins.percent_change_1h, render: $.fn.dataTable.render.number(',', '.', 2, '', '%') },
+                { data: coins.percent_change_24h, render: $.fn.dataTable.render.number(',', '.', 2, '', '%') },
+                { data: coins.percent_change_7d, render: $.fn.dataTable.render.number(',', '.', 2, '', '%') },
+                { data: coins.market_cap_usd, render: $.fn.dataTable.render.number(',', '.', 0, '$') },
+              ],
+              createdRow(row, data) {
+                $('td', row).eq(0).html('#' + data[0]);
+              },
             });
           });
         }))
