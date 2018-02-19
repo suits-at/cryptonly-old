@@ -29,9 +29,9 @@
           <td class="textLeft">{{coin.symbol}}</td>
           <td>{{coin.price_usd}}</td>
           <td>{{coin.price_eur}}</td>
-          <td v-bind:class="{ positive: coin.percent_change_1h > 0, negative: coin.percent_change_1h < 0}">{{coin.percent_change_1h}}</td>
-          <td v-bind:class="{ positive: coin.percent_change_24h > 0, negative: coin.percent_change_24h < 0}">{{coin.percent_change_24h}}</td>
-          <td v-bind:class="{ positive: coin.percent_change_7d > 0, negative: coin.percent_change_7d < 0}">{{coin.percent_change_7d}}</td>
+          <td><span v-bind:class="{ positive: coin.percent_change_1h > 0, negative: coin.percent_change_1h < 0}">{{coin.percent_change_1h}}%</span></td>
+          <td><span v-bind:class="{ positive: coin.percent_change_24h > 0, negative: coin.percent_change_24h < 0}">{{coin.percent_change_24h}}%</span></td>
+          <td><span v-bind:class="{ positive: coin.percent_change_7d > 0, negative: coin.percent_change_7d < 0}">{{coin.percent_change_7d}}%</span></td>
           <td>{{coin.market_cap_usd}}</td>
         </tr>
         </tbody>
@@ -96,9 +96,9 @@
                 { data: coins.symbol },
                 { data: coins.price_usd, render: $.fn.dataTable.render.number(',', '.', 4, '$') },
                 { data: coins.price_eur, render: $.fn.dataTable.render.number(',', '.', 4, '€') },
-                { data: coins.percent_change_1h, render: $.fn.dataTable.render.number(',', '.', 2, '', '%') },
-                { data: coins.percent_change_24h, render: $.fn.dataTable.render.number(',', '.', 2, '', '%') },
-                { data: coins.percent_change_7d, render: $.fn.dataTable.render.number(',', '.', 2, '', '%') },
+                { data: coins.percent_change_1h, type: 'html-num-fmt' },
+                { data: coins.percent_change_24h, type: 'html-num-fmt' },
+                { data: coins.percent_change_7d, type: 'html-num-fmt' },
                 { data: coins.market_cap_usd, render: $.fn.dataTable.render.number(',', '.', 0, '$') },
               ],
               createdRow(row, data) {
@@ -139,5 +139,8 @@
   }
   .positive {
     color: limegreen;
+  }
+  .dataTables_wrapper {
+    padding-top: 1.2rem;
   }
 </style>
