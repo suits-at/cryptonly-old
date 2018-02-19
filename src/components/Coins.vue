@@ -88,7 +88,7 @@
                 { responsivePriority: 1, targets: 0 },
                 { responsivePriority: 2, targets: 2 },
                 { responsivePriority: 3, targets: 3 },
-                { responsivePriority: 3, targets: 5 },
+                { responsivePriority: 3, targets: 6 },
               ],
               columns: [
                 { data: coins.rank },
@@ -117,7 +117,8 @@
 <style>
   #container {
     max-width: 1200px;
-    margin: 30px auto;
+    margin: 0 auto;
+    padding: 20px;
   }
   .textRight {
     text-align: right;

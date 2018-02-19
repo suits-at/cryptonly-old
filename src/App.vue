@@ -28,11 +28,6 @@ body {
   color: #2c3e50;
 }
 
-main {
-  text-align: center;
-  margin-top: 40px;
-}
-
 header {
   margin: 0;
   height: 56px;
