@@ -29,10 +29,11 @@
           <td class="textLeft">{{coin.symbol}}</td>
           <td>{{coin.price_usd}}</td>
           <td>{{coin.price_eur}}</td>
-          <td><span v-bind:class="{ positive: coin.percent_change_1h > 0, negative: coin.percent_change_1h < 0}">{{coin.percent_change_1h}}%</span></td>
-          <td><span v-bind:class="{ positive: coin.percent_change_24h > 0, negative: coin.percent_change_24h < 0}">{{coin.percent_change_24h}}%</span></td>
-          <td><span v-bind:class="{ positive: coin.percent_change_7d > 0, negative: coin.percent_change_7d < 0}">{{coin.percent_change_7d}}%</span></td>
-          <td>{{coin.market_cap_usd}}</td>
+          <td v-if="coin.percent_change_1h"><span v-bind:class="{ positive: coin.percent_change_1h > 0, negative: coin.percent_change_1h < 0}">{{coin.percent_change_1h}}</span></td><td v-else>0%</td>
+          <td v-if="coin.percent_change_24h"><span v-bind:class="{ positive: coin.percent_change_24h > 0, negative: coin.percent_change_24h < 0}">{{coin.percent_change_24h}}</span></td><td v-else>0%</td>
+          <td v-if="coin.percent_change_7d"><span v-bind:class="{ positive: coin.percent_change_7d > 0, negative: coin.percent_change_7d < 0}">{{coin.percent_change_7d}}</span></td><td v-else>0%</td>
+          <td v-if="coin.market_cap_usd">{{coin.market_cap_usd}}</td><td v-else>0</td>
+
         </tr>
         </tbody>
       </table>
@@ -78,12 +79,11 @@
           this.globals = globals.data;
           $(document).ready(() => {
             $('#marketCap').DataTable({
+              // save state in localStorage without time limit
+              stateSave: true,
+              stateDuration: 0,
               responsive: true,
               lengthMenu: [[100, 50, 25, 10, -1], [100, 50, 25, 10, 'All']],
-              language: {
-                decimal: '.',
-                thousands: ',',
-              },
               columnDefs: [
                 { responsivePriority: 1, targets: 0 },
                 { responsivePriority: 2, targets: 2 },
@@ -94,8 +94,51 @@
                 { data: coins.rank },
                 { data: coins.name },
                 { data: coins.symbol },
-                { data: coins.price_usd, render: $.fn.dataTable.render.number(',', '.', 4, '$') },
-                { data: coins.price_eur, render: $.fn.dataTable.render.number(',', '.', 4, '€') },
+                { data: coins.price_usd,
+                  type: 'num-fmt',
+                  // format numbers to:
+                  // save amount of decimals
+                  // show thousand seperator
+                  // add currency symbol
+                  render(data) {
+                    let res = data.split('.');
+                    if (res[0]) {
+                      if (res[0].length > 3) {
+                        res[0] = res[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+                      }
+                      res = res[0] + '.' + res[1];
+                      return '$' + res;
+                    }
+                    if (data) {
+                      return '$' + data;
+                    }
+                    return 'no data yet';
+                  },
+                },
+                { data: coins.price_eur,
+                  type: 'num-fmt',
+                  // format numbers to:
+                  // show same amount of decimals like usd
+                  // show thousand seperator
+                  // add currency symbol
+                  render(data, type, row) {
+                    const dollar = row[3].split('.');
+                    if (dollar[1]) {
+                      const commas = dollar[1].length;
+                      let res = data.split('.');
+                      res[1] = res[1].slice(0, commas);
+                      if (res[0].length > 3) {
+                        res[0] = res[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+                      }
+                      res = res[0] + '.' + res[1];
+                      return '€' + res;
+                    }
+                    if (data) {
+                      return '€' + data;
+                    }
+                    return 'no data yet';
+                  },
+                },
                 { data: coins.percent_change_1h, type: 'html-num-fmt' },
                 { data: coins.percent_change_24h, type: 'html-num-fmt' },
                 { data: coins.percent_change_7d, type: 'html-num-fmt' },
