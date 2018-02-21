@@ -1,11 +1,9 @@
 <template>
   <div id="container">
     <div v-if="globals" id="globals">
-      <ul id="globalsList">
-        <li><strong>Total Market Cap</strong> ${{globals.total_market_cap_usd}}</li>
-        <li><strong>24h Volume</strong> ${{globals.total_24h_volume_usd}}</li>
-        <li><strong>BTC Dominance</strong> {{globals.bitcoin_percentage_of_market_cap}}%</li>
-      </ul>
+      <p><strong>Total Market Cap:</strong> ${{globals.total_market_cap_usd}}</p>
+      <p><strong>24h Volume:</strong> ${{globals.total_24h_volume_usd}}</p>
+      <p><strong>BTC Dominance:</strong> {{globals.bitcoin_percentage_of_market_cap}}%</p>
     </div>
     <div v-if="coins && coins.length">
       <table id="marketCap" class="display" cellspacing="0" width="100%">
@@ -29,11 +27,10 @@
           <td class="textLeft">{{coin.symbol}}</td>
           <td>{{coin.price_usd}}</td>
           <td>{{coin.price_eur}}</td>
-          <td v-if="coin.percent_change_1h"><span v-bind:class="{ positive: coin.percent_change_1h > 0, negative: coin.percent_change_1h < 0}">{{coin.percent_change_1h}}</span></td><td v-else>0%</td>
-          <td v-if="coin.percent_change_24h"><span v-bind:class="{ positive: coin.percent_change_24h > 0, negative: coin.percent_change_24h < 0}">{{coin.percent_change_24h}}</span></td><td v-else>0%</td>
-          <td v-if="coin.percent_change_7d"><span v-bind:class="{ positive: coin.percent_change_7d > 0, negative: coin.percent_change_7d < 0}">{{coin.percent_change_7d}}</span></td><td v-else>0%</td>
+          <td v-if="coin.percent_change_1h"><span v-bind:class="{ positive: coin.percent_change_1h > 0, negative: coin.percent_change_1h < 0}">{{coin.percent_change_1h}}%</span></td><td v-else>0%</td>
+          <td v-if="coin.percent_change_24h"><span v-bind:class="{ positive: coin.percent_change_24h > 0, negative: coin.percent_change_24h < 0}">{{coin.percent_change_24h}}%</span></td><td v-else>0%</td>
+          <td v-if="coin.percent_change_7d"><span v-bind:class="{ positive: coin.percent_change_7d > 0, negative: coin.percent_change_7d < 0}">{{coin.percent_change_7d}}%</span></td><td v-else>0%</td>
           <td v-if="coin.market_cap_usd">{{coin.market_cap_usd}}</td><td v-else>0</td>
-
         </tr>
         </tbody>
       </table>
@@ -77,6 +74,9 @@
         .then(axios.spread((coins, globals) => {
           this.coins = coins.data;
           this.globals = globals.data;
+          // add thousands seperator
+          this.globals.total_market_cap_usd = globals.data.total_market_cap_usd.toLocaleString('en-US');
+          this.globals.total_24h_volume_usd = globals.data.total_24h_volume_usd.toLocaleString('en-US');
           $(document).ready(() => {
             $('#marketCap').DataTable({
               // save state in localStorage without time limit
@@ -169,14 +169,6 @@
   .textLeft {
     text-align: left;
   }
-  #globals {
-    padding-bottom: 3rem;
-  }
-  #globalsList li {
-    list-style-type: none;
-    float: left;
-    margin-left: 10%;
-  }
   .negative {
     color: red;
   }
@@ -185,5 +177,35 @@
   }
   .dataTables_wrapper {
     padding-top: 1.2rem;
+  }
+  /* adjust market cap styling*/
+  #globals{
+    display: grid;
+    grid-template-columns: repeat( 1, var(--width) );
+  }
+  @media screen and (min-width: 30em) and (max-width: 75em) {
+    #globals {
+      grid-template-columns: repeat( 3, 1fr );
+    }
+    #globals p:nth-child(2){
+      text-align: center;
+    }
+    #globals p:nth-child(3){
+      text-align: right;
+    }
+  }
+  @media screen and (min-width: 75em) {
+    :root {
+      --width: calc( (1200px) / 3 );
+    }
+    #globals {
+      grid-template-columns: repeat( 3, var(--width) );
+    }
+    #globals p:nth-child(2){
+      text-align: center;
+    }
+    #globals p:nth-child(3){
+      text-align: right;
+    }
   }
 </style>
