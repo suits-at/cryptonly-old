@@ -83,7 +83,7 @@
               stateSave: true,
               stateDuration: 0,
               responsive: true,
-              lengthMenu: [[100, 50, 25, 10, -1], [100, 50, 25, 10, 'All']],
+              lengthMenu: [[10, 25, 50, 100, -1], [10, 25, 50, 100, 'All']],
               columnDefs: [
                 { responsivePriority: 1, targets: 0 },
                 { responsivePriority: 2, targets: 2 },
