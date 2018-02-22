@@ -2,7 +2,9 @@
   <div id="app">
     <header>
       <span>cryptonly</span>
-      <a href="https://github.com/suits-at/cryptonly"><font-awesome-icon :icon="['fab', 'github']" title="Github" /></a>
+      <a href="https://github.com/suits-at/cryptonly" title="Github">
+        <font-awesome-icon :icon="['fab', 'github']" title="Github"/>
+      </a>
     </header>
     <main>
       <!--<img src="./assets/logo.png" alt="Vue.js PWA">-->
@@ -10,7 +12,9 @@
     </main>
     <footer>
       <span>cryptonly</span>
-      <a href="https://github.com/suits-at/cryptonly"><font-awesome-icon :icon="['fab', 'github']" title="Github" /></a>
+      <a href="https://github.com/suits-at/cryptonly" title="Github">
+        <font-awesome-icon :icon="['fab', 'github']" title="Github"/>
+      </a>
     </footer>
   </div>
 </template>
@@ -42,18 +46,18 @@
     color: #2c3e50;
   }
 
-  header, footer{
+  header, footer {
     padding: 15px 25px 15px 25px;
     background-color: #35495E;
     color: #ffffff;
     font-size: 24px;
   }
 
-  header a, footer a{
+  header a, footer a {
     float: right;
   }
 
-  a, a:visited{
+  a, a:visited {
     color: white;
   }
 </style>
