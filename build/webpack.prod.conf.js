@@ -13,6 +13,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin')
 const loadMinified = require('./load-minified')
+const OptimizeJsPlugin = require("optimize-js-plugin");
 
 const env = config.build.env
 
@@ -38,6 +39,9 @@ const webpackConfig = merge(baseWebpackConfig, {
       compress: {
         warnings: false
       },
+      sourceMap: true
+    }),
+    new OptimizeJsPlugin({
       sourceMap: true
     }),
     // extract css into its own file
