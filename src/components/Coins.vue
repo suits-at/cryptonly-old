@@ -63,7 +63,7 @@
     // Fetches posts when the component is created.
     created() {
       function getCoins() {
-        return axios.get('https://api.coinmarketcap.com/v1/ticker/?convert=EUR&limit=-1');
+        return axios.get('https://api.coinmarketcap.com/v1/ticker/?convert=EUR&limit=100');
       }
 
       function getGlobals() {
