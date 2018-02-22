@@ -2,7 +2,7 @@
   <div id="app">
     <header>
       <span>cryptonly</span>
-      <a href="https://github.com/suits-at/cryptonly"><font-awesome-icon :icon="['fab', 'github']" /></a>
+      <a href="https://github.com/suits-at/cryptonly"><font-awesome-icon :icon="['fab', 'github']" title="Github" /></a>
     </header>
     <main>
       <!--<img src="./assets/logo.png" alt="Vue.js PWA">-->

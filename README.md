@@ -1,6 +1,6 @@
 # cryptonly
 
-> The only cryptocurrency portfolio you will ever need.
+> The only cryptocurrency portfolio tracker you will ever need.
 
 Currently under active development! More features will be added soon. 
 
