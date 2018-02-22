@@ -2,26 +2,28 @@
   <div id="app">
     <header>
       <span>cryptonly</span>
-      <a href="https://github.com/suits-at/cryptonly"><font-awesome-icon :icon="icon" /></a>
+      <a href="https://github.com/suits-at/cryptonly"><font-awesome-icon :icon="['fab', 'github']" /></a>
     </header>
     <main>
       <!--<img src="./assets/logo.png" alt="Vue.js PWA">-->
       <router-view></router-view>
     </main>
+    <footer>
+      <span>cryptonly</span>
+      <a href="https://github.com/suits-at/cryptonly"><font-awesome-icon :icon="['fab', 'github']" /></a>
+    </footer>
   </div>
 </template>
 <script>
 
+  import fontawesome from '@fortawesome/fontawesome';
   import FontAwesomeIcon from '@fortawesome/vue-fontawesome';
   import faGithub from '@fortawesome/fontawesome-free-brands/faGithub';
 
+  fontawesome.library.add(faGithub);
+
   export default {
     name: 'app',
-    computed: {
-      icon() {
-        return faGithub;
-      },
-    },
     components: {
       FontAwesomeIcon,
     },
@@ -40,18 +42,18 @@
     color: #2c3e50;
   }
 
-  header {
+  header, footer{
     padding: 15px 25px 15px 25px;
     background-color: #35495E;
     color: #ffffff;
     font-size: 24px;
   }
 
-  header a{
+  header a, footer a{
     float: right;
   }
 
-  a:visited{
+  a, a:visited{
     color: white;
   }
 </style>

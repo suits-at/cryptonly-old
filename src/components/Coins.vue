@@ -131,10 +131,10 @@
                         res[0] = res[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
                       }
                       res = res[0] + '.' + res[1];
-                      return '€' + res;
+                      return res + '€';
                     }
                     if (data) {
-                      return '€' + data;
+                      return data + '€';
                     }
                     return 'no data yet';
                   },
