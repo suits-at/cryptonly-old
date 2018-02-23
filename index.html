@@ -34,33 +34,9 @@
   <link rel="<%= chunk.initial?'preload':'prefetch' %>" href="<%= htmlWebpackPlugin.files.publicPath + file %>"
         as="<%= file.match(/\.css$/)?'style':'script' %>">
   <% }}} %>
+  <!-- critical css -->
   <style>
-    #app {
-      font-family: Avenir, Helvetica, Arial, sans-serif;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-      color: #2c3e50
-    }
-
-    @media screen and (min-width: 75em) {
-      :root {
-        --width: 400px
-      }
-    }
-
-    html {
-      line-height: 1.15;
-      -webkit-text-size-adjust: 100%
-    }
-
-    body {
-      margin: 0
-    }
-
-    ::-webkit-file-upload-button {
-      -webkit-appearance: button;
-      font: inherit
-    }
+    #app{font-family:Avenir,Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;color:#2c3e50}@media screen and (min-width:75em){:root{--width:400px}}html{line-height:1.15;-webkit-text-size-adjust:100%}body{margin:0}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}
   </style>
 </head>
 <body>

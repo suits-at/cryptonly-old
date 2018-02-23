@@ -74,7 +74,7 @@
       $('#marketCap').DataTable({
         // load data from API via AJAX
         ajax: {
-          url: 'https://api.coinmarketcap.com/v1/ticker/?convert=EUR&limit=-1',
+          url: 'https://api.coinmarketcap.com/v1/ticker/?convert=EUR&limit=300',
           dataSrc: '',
         },
         // improve startup performance
@@ -83,7 +83,7 @@
         stateSave: true,
         stateDuration: 0,
         responsive: true,
-        lengthMenu: [[10, 25, 50, 100, 500, -1], [10, 25, 50, 100, 500, 'All']],
+        lengthMenu: [[10, 25, 50, 100, -1], [10, 25, 50, 100, 'All']],
         // define which columns are shown on small displays
         columnDefs: [
           { responsivePriority: 1, targets: 0 },

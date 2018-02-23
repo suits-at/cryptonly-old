@@ -7,5 +7,3 @@ Header set Expires "Wed, 11 Jan 1984 05:00:00 GMT"
 </Files>
 
 Header set Cache-Control "max-age=300, must-revalidate"
-
-#TODO: activate caching
