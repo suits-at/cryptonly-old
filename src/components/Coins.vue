@@ -140,60 +140,17 @@
           },
           // change color if positive or negative value
           // add '%' after value
-          {
-            targets: 5,
-            createdCell(td, cellData) {
-              if (cellData) {
-                if (cellData < 0) {
-                  $(td).css('color', 'red');
-                } else if (cellData > 0) {
-                  $(td).css('color', 'limegreen');
+          { targets: [5, 6, 7],
+            render(data) {
+              if (data) {
+                if (data < 0) {
+                  return '<span class="negative">' + data + '%</span>';
+                } else if (data > 0) {
+                  return '<span class="positive">' + data + '%</span>';
                 }
-                $(td).text(cellData + '%');
-              } else {
-                $(td).text('0%');
+                return data + '%';
               }
-            },
-          },
-          {
-            targets: 6,
-            createdCell(td, cellData) {
-              if (cellData) {
-                if (cellData < 0) {
-                  $(td).css('color', 'red');
-                } else if (cellData > 0) {
-                  $(td).css('color', 'limegreen');
-                }
-                $(td).text(cellData + '%');
-              } else {
-                $(td).text('0%');
-              }
-            },
-          },
-          {
-            targets: 7,
-            createdCell(td, cellData) {
-              if (cellData) {
-                if (cellData < 0) {
-                  $(td).css('color', 'red');
-                } else if (cellData > 0) {
-                  $(td).css('color', 'limegreen');
-                }
-                $(td).text(cellData + '%');
-              } else {
-                $(td).text('0%');
-              }
-            },
-          },
-          // format market cap
-          {
-            targets: 8,
-            createdCell(td, cellData) {
-              if (cellData) {
-                const cell = cellData.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-                return $(td).text('$' + cell);
-              }
-              return $(td).text('$' + 0);
+              return '0%';
             },
           },
         ],
@@ -206,7 +163,8 @@
           { data: 'percent_change_1h', type: 'html-num-fmt' },
           { data: 'percent_change_24h', type: 'html-num-fmt' },
           { data: 'percent_change_7d', type: 'html-num-fmt' },
-          { data: 'market_cap_usd', type: 'num-fmt' },
+          // format market cap
+          { data: 'market_cap_usd', render: $.fn.dataTable.render.number(',', '.', 0, '$') },
         ],
       });
     },
@@ -224,6 +182,10 @@
   }
 
   td:nth-child(2), td:nth-child(3) {
+    text-align: left;
+  }
+
+  tr.child{
     text-align: left;
   }
 
