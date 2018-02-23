@@ -65,9 +65,9 @@
       axios.get('https://api.coinmarketcap.com/v1/global/?convert=EUR')
         .then((globalStats) => {
           // add thousands seperator
-          this.globalStats.total_market_cap_usd = globalStats.data.total_market_cap_usd.toLocaleString('en-US');
-          this.globalStats.total_24h_volume_usd = globalStats.data.total_24h_volume_usd.toLocaleString('en-US');
           this.globalStats = globalStats.data;
+          this.globalStats.total_market_cap_usd = this.globalStats.total_market_cap_usd.toLocaleString('en-US');
+          this.globalStats.total_24h_volume_usd = this.globalStats.total_24h_volume_usd.toLocaleString('en-US');
         }).catch((e) => {
           this.errors.push(e);
         });
