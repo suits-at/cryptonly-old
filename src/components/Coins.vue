@@ -1,11 +1,11 @@
 <template>
   <div id="container">
-    <div v-if="globals" id="globals">
-      <p><strong>Total Market Cap:</strong> ${{globals.total_market_cap_usd}}</p>
-      <p><strong>24h Volume:</strong> ${{globals.total_24h_volume_usd}}</p>
-      <p><strong>BTC Dominance:</strong> {{globals.bitcoin_percentage_of_market_cap}}%</p>
+    <div v-if="globalStats" id="globals">
+      <p><strong>Total Market Cap:</strong> ${{globalStats.total_market_cap_usd}}</p>
+      <p><strong>24h Volume:</strong> ${{globalStats.total_24h_volume_usd}}</p>
+      <p><strong>BTC Dominance:</strong> {{globalStats.bitcoin_percentage_of_market_cap}}%</p>
     </div>
-    <div v-if="coins && coins.length">
+    <div>
       <table id="marketCap" class="display" cellspacing="0" width="100%">
         <thead>
         <tr class="textRight">
@@ -21,16 +21,16 @@
         </tr>
         </thead>
         <tbody>
-        <tr v-for="coin of coins" class="textRight">
-          <td>{{coin.rank}}</td>
-          <td class="textLeft">{{coin.name}}</td>
-          <td class="textLeft">{{coin.symbol}}</td>
-          <td>{{coin.price_usd}}</td>
-          <td>{{coin.price_eur}}</td>
-          <td v-if="coin.percent_change_1h"><span v-bind:class="{ positive: coin.percent_change_1h > 0, negative: coin.percent_change_1h < 0}">{{coin.percent_change_1h}}%</span></td><td v-else>0%</td>
-          <td v-if="coin.percent_change_24h"><span v-bind:class="{ positive: coin.percent_change_24h > 0, negative: coin.percent_change_24h < 0}">{{coin.percent_change_24h}}%</span></td><td v-else>0%</td>
-          <td v-if="coin.percent_change_7d"><span v-bind:class="{ positive: coin.percent_change_7d > 0, negative: coin.percent_change_7d < 0}">{{coin.percent_change_7d}}%</span></td><td v-else>0%</td>
-          <td v-if="coin.market_cap_usd">{{coin.market_cap_usd}}</td><td v-else>0</td>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
         </tr>
         </tbody>
       </table>
@@ -54,108 +54,163 @@
   export default {
     data() {
       return {
-        coins: [],
-        globals: [],
+        globalStats: [],
         errors: [],
       };
     },
-
     // Fetches posts when the component is created.
     created() {
-      function getCoins() {
-        return axios.get('https://api.coinmarketcap.com/v1/ticker/?convert=EUR&limit=300');
-      }
-
-      function getGlobals() {
-        return axios.get('https://api.coinmarketcap.com/v1/global/?convert=EUR');
-      }
-
-      axios.all([getCoins(), getGlobals()])
-        .then(axios.spread((coins, globals) => {
-          this.coins = coins.data;
-          this.globals = globals.data;
+      axios.get('https://api.coinmarketcap.com/v1/global/?convert=EUR')
+        .then((globalStats) => {
           // add thousands seperator
-          this.globals.total_market_cap_usd = globals.data.total_market_cap_usd.toLocaleString('en-US');
-          this.globals.total_24h_volume_usd = globals.data.total_24h_volume_usd.toLocaleString('en-US');
-          $(document).ready(() => {
-            $('#marketCap').DataTable({
-              // save state in localStorage without time limit
-              stateSave: true,
-              stateDuration: 0,
-              responsive: true,
-              lengthMenu: [[10, 25, 50, 100, -1], [10, 25, 50, 100, 'All']],
-              columnDefs: [
-                { responsivePriority: 1, targets: 0 },
-                { responsivePriority: 2, targets: 2 },
-                { responsivePriority: 3, targets: 3 },
-                { responsivePriority: 3, targets: 6 },
-              ],
-              columns: [
-                { data: coins.rank },
-                { data: coins.name },
-                { data: coins.symbol },
-                { data: coins.price_usd,
-                  type: 'num-fmt',
-                  // format numbers to:
-                  // save amount of decimals
-                  // show thousand seperator
-                  // add currency symbol
-                  render(data) {
-                    let res = data.split('.');
-                    if (res[0]) {
-                      if (res[0].length > 3) {
-                        res[0] = res[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-                      }
-                      res = res[0] + '.' + res[1];
-                      return '$' + res;
-                    }
-                    if (data) {
-                      return '$' + data;
-                    }
-                    return 'no data yet';
-                  },
-                },
-                { data: coins.price_eur,
-                  type: 'num-fmt',
-                  // format numbers to:
-                  // show same amount of decimals like usd
-                  // show thousand seperator
-                  // add currency symbol
-                  render(data, type, row) {
-                    const dollar = row[3].split('.');
-                    if (dollar[1]) {
-                      const commas = dollar[1].length;
-                      let res = data.split('.');
-                      res[1] = res[1].slice(0, commas);
-                      if (res[0].length > 3) {
-                        res[0] = res[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-                      }
-                      res = res[0] + '.' + res[1];
-                      return res + '€';
-                    }
-                    if (data) {
-                      return data + '€';
-                    }
-                    return 'no data yet';
-                  },
-                },
-                { data: coins.percent_change_1h, type: 'html-num-fmt' },
-                { data: coins.percent_change_24h, type: 'html-num-fmt' },
-                { data: coins.percent_change_7d, type: 'html-num-fmt' },
-                { data: coins.market_cap_usd, render: $.fn.dataTable.render.number(',', '.', 0, '$') },
-              ],
-              createdRow(row, data) {
-                $('td', row).eq(0).html('#' + data[0]);
-              },
-            });
-          });
-        }))
-        .catch((e) => {
+          this.globalStats.total_market_cap_usd = globalStats.data.total_market_cap_usd.toLocaleString('en-US');
+          this.globalStats.total_24h_volume_usd = globalStats.data.total_24h_volume_usd.toLocaleString('en-US');
+          this.globalStats = globalStats.data;
+        }).catch((e) => {
           this.errors.push(e);
         });
     },
+    mounted() {
+      $('#marketCap').DataTable({
+        // load data from API via AJAX
+        ajax: {
+          url: 'https://api.coinmarketcap.com/v1/ticker/?convert=EUR&limit=-1',
+          dataSrc: '',
+        },
+        // improve startup performance
+        deferRender: true,
+        // save state in localStorage without time limit
+        stateSave: true,
+        stateDuration: 0,
+        responsive: true,
+        lengthMenu: [[10, 25, 50, 100, 500, -1], [10, 25, 50, 100, 500, 'All']],
+        // define which columns are shown on small displays
+        columnDefs: [
+          { responsivePriority: 1, targets: 0 },
+          { responsivePriority: 2, targets: 2 },
+          { responsivePriority: 3, targets: 3 },
+          { responsivePriority: 3, targets: 6 },
+          // format dollar price to:
+          // save amount of decimals
+          // show thousand seperator
+          // add currency symbol
+          {
+            targets: 3,
+            createdCell(td, cellData) {
+              if (cellData) {
+                let res = cellData.split('.');
+                if (res[0]) {
+                  if (res[0].length > 3) {
+                    res[0] = res[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+                  }
+                  res = res[0] + '.' + res[1];
+                  return $(td).text('$' + res);
+                }
+                return $(td).text('$' + cellData);
+              }
+              return $(td).text('no data yet');
+            },
+          },
+          // format euro price to:
+          // show same amount of decimals like usd
+          // show thousand seperator
+          // add currency symbol
+          {
+            targets: 4,
+            createdCell(td, cellData, row) {
+              if (cellData) {
+                // if there is a valid dollar price
+                if (row.price_usd) {
+                  const dollar = row.price_usd.split('.');
+                  if (dollar[1]) {
+                    const commas = dollar[1].length;
+                    let res = cellData.split('.');
+                    res[1] = res[1].slice(0, commas);
+                    if (res[0].length > 3) {
+                      res[0] = res[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+                    }
+                    res = res[0] + '.' + res[1];
+                    return $(td).text(res + '€');
+                  }
+                }
+                return $(td).text(cellData + '€');
+              }
+              return $(td).text('no data yet');
+            },
+          },
+          // change color if positive or negative value
+          // add '%' after value
+          {
+            targets: 5,
+            createdCell(td, cellData) {
+              if (cellData) {
+                if (cellData < 0) {
+                  $(td).css('color', 'red');
+                } else if (cellData > 0) {
+                  $(td).css('color', 'limegreen');
+                }
+                $(td).text(cellData + '%');
+              } else {
+                $(td).text('0%');
+              }
+            },
+          },
+          {
+            targets: 6,
+            createdCell(td, cellData) {
+              if (cellData) {
+                if (cellData < 0) {
+                  $(td).css('color', 'red');
+                } else if (cellData > 0) {
+                  $(td).css('color', 'limegreen');
+                }
+                $(td).text(cellData + '%');
+              } else {
+                $(td).text('0%');
+              }
+            },
+          },
+          {
+            targets: 7,
+            createdCell(td, cellData) {
+              if (cellData) {
+                if (cellData < 0) {
+                  $(td).css('color', 'red');
+                } else if (cellData > 0) {
+                  $(td).css('color', 'limegreen');
+                }
+                $(td).text(cellData + '%');
+              } else {
+                $(td).text('0%');
+              }
+            },
+          },
+          // format market cap
+          {
+            targets: 8,
+            createdCell(td, cellData) {
+              if (cellData) {
+                const cell = cellData.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+                return $(td).text('$' + cell);
+              }
+              return $(td).text('$' + 0);
+            },
+          },
+        ],
+        columns: [
+          { data: 'rank' },
+          { data: 'name' },
+          { data: 'symbol' },
+          { data: 'price_usd', type: 'num-fmt' },
+          { data: 'price_eur', type: 'num-fmt' },
+          { data: 'percent_change_1h', type: 'html-num-fmt' },
+          { data: 'percent_change_24h', type: 'html-num-fmt' },
+          { data: 'percent_change_7d', type: 'html-num-fmt' },
+          { data: 'market_cap_usd', type: 'num-fmt' },
+        ],
+      });
+    },
   };
-
 </script>
 <style>
   #container {
@@ -163,48 +218,69 @@
     margin: 0 auto;
     padding: 20px;
   }
+
+  tr {
+    text-align: right;
+  }
+
+  td:nth-child(2), td:nth-child(3) {
+    text-align: left;
+  }
+
   .textRight {
     text-align: right;
   }
+
   .textLeft {
     text-align: left;
   }
+
   .negative {
     color: red;
   }
+
   .positive {
     color: limegreen;
   }
+
   .dataTables_wrapper {
     padding-top: 1.2rem;
   }
+
   /* adjust market cap styling*/
-  #globals{
+  #globals {
     display: grid;
-    grid-template-columns: repeat( 1, var(--width) );
+    grid-template-columns: repeat(1, var(--width));
   }
+
   @media screen and (min-width: 30em) and (max-width: 75em) {
     #globals {
-      grid-template-columns: repeat( 3, 1fr );
+      grid-template-columns: repeat(3, 1fr);
     }
-    #globals p:nth-child(2){
+
+    #globals p:nth-child(2) {
       text-align: center;
     }
-    #globals p:nth-child(3){
+
+    #globals p:nth-child(3) {
       text-align: right;
     }
   }
+
   @media screen and (min-width: 75em) {
     :root {
-      --width: calc( (1200px) / 3 );
+      --width: calc((1200px) / 3);
     }
+
     #globals {
-      grid-template-columns: repeat( 3, var(--width) );
+      grid-template-columns: repeat(3, var(--width));
     }
-    #globals p:nth-child(2){
+
+    #globals p:nth-child(2) {
       text-align: center;
     }
-    #globals p:nth-child(3){
+
+    #globals p:nth-child(3) {
       text-align: right;
     }
   }
