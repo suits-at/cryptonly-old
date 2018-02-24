@@ -73,7 +73,7 @@
         });
     },
     mounted() {
-      $('#marketCap').DataTable({
+      const table = $('#marketCap').DataTable({
         // load data from API via AJAX
         ajax: {
           url: 'https://api.coinmarketcap.com/v1/ticker/?convert=EUR&limit=-1',
@@ -170,6 +170,10 @@
           { data: 'market_cap_usd', render: $.fn.dataTable.render.number(',', '.', 0, '$') },
         ],
       });
+      // reload data every 30 seconds
+      setInterval(() => {
+        table.ajax.reload(null, false); // user paging is not reset on reload
+      }, 30000);
     },
   };
 </script>
