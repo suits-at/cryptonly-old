@@ -31,8 +31,7 @@
     components: {
       FontAwesomeIcon,
     },
-  };
-</script>
+  };</script>
 
 <style>
   body {
