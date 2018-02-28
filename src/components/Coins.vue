@@ -10,8 +10,8 @@
         <thead>
         <tr class="textRight">
           <th>#</th>
-          <th class="textLeft">Name</th>
-          <th class="textLeft">Symbol</th>
+          <th>Name</th>
+          <th>Symbol</th>
           <th>Price $</th>
           <th>Price €</th>
           <th>1h</th>
@@ -141,15 +141,26 @@
               return $(td).text('no data yet');
             },
           },
+          // add trailing zero if missing
           // change color if positive or negative value
           // add '%' after value
           { targets: [5, 6, 7],
             render(data) {
               if (data) {
-                if (data < 0) {
-                  return '<span class="negative">' + data + '%</span>';
+                // add trailing zero if missing
+                let res = data.split('.');
+                if (res[1]) {
+                  if (res[1].length < 2) {
+                    res[1] += '0';
+                  }
+                  res = res[0] + '.' + res[1];
+                }
+                // change color if positive or negative value
+                // add '%' after value
+                if (res < 0) {
+                  return '<span class="negative">' + res + '%</span>';
                 } else if (data > 0) {
-                  return '<span class="positive">' + data + '%</span>';
+                  return '<span class="positive">' + res + '%</span>';
                 }
                 return data + '%';
               }
@@ -188,9 +199,15 @@
     text-align: right;
   }
 
-  td:nth-child(2), td:nth-child(3) {
+  td:nth-child(2), td:nth-child(3),
+  th:nth-child(2), th:nth-child(3){
     text-align: left;
   }
+
+  td:nth-child(1), th:nth-child(1), th:nth-child(6), th:nth-child(7), th:nth-child(8){
+    text-align: center;
+  }
+
 
   tr.child{
     text-align: left;
