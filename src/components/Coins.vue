@@ -1,10 +1,12 @@
 <template>
   <div id="container">
-      <div v-if="globalStats" class="md-layout" id="globals">
-        <div class="md-layout-item"><p><strong>Total Market Cap:</strong> ${{globalStats.total_market_cap_usd}}</p></div>
-        <div class="md-layout-item"><p class="textCenter"><strong>24h Volume:</strong> ${{globalStats.total_24h_volume_usd}}</p></div>
-        <div class="md-layout-item"><p class="textRight"><strong>BTC Dominance:</strong> {{globalStats.bitcoin_percentage_of_market_cap}}%</p></div>
-      </div>
+    <div v-if="globalStats" class="md-layout" id="globals">
+      <div class="md-layout-item"><p><strong>Total Market Cap:</strong> ${{globalStats.total_market_cap_usd}}</p></div>
+      <div class="md-layout-item"><p class="textCenter"><strong>24h Volume:</strong>
+        ${{globalStats.total_24h_volume_usd}}</p></div>
+      <div class="md-layout-item"><p class="textRight"><strong>BTC Dominance:</strong>
+        {{globalStats.bitcoin_percentage_of_market_cap}}%</p></div>
+    </div>
     <div>
       <table id="marketCap" class="display" cellspacing="0" width="100%">
         <thead>
@@ -69,8 +71,8 @@
           this.globalStats.total_market_cap_usd = this.globalStats.total_market_cap_usd.toLocaleString('en-US');
           this.globalStats.total_24h_volume_usd = this.globalStats.total_24h_volume_usd.toLocaleString('en-US');
         }).catch((e) => {
-          this.errors.push(e);
-        });
+        this.errors.push(e);
+      });
     },
     mounted() {
       const table = $('#marketCap').DataTable({
@@ -89,10 +91,10 @@
         lengthMenu: [[10, 25, 50, 100, 500, -1], [10, 25, 50, 100, 500, 'All']],
         // define which columns are shown on small displays
         columnDefs: [
-          { responsivePriority: 1, targets: 0 },
-          { responsivePriority: 2, targets: 2 },
-          { responsivePriority: 3, targets: 3 },
-          { responsivePriority: 3, targets: 6 },
+          {responsivePriority: 1, targets: 0},
+          {responsivePriority: 2, targets: 2},
+          {responsivePriority: 3, targets: 3},
+          {responsivePriority: 3, targets: 6},
           // format dollar price to:
           // save amount of decimals
           // show thousand seperator
@@ -144,7 +146,8 @@
           // add trailing zero if missing
           // change color if positive or negative value
           // add '%' after value
-          { targets: [5, 6, 7],
+          {
+            targets: [5, 6, 7],
             render(data) {
               if (data) {
                 // add trailing zero if missing
@@ -169,49 +172,55 @@
           },
         ],
         columns: [
-          { data: 'rank' },
-          { data: 'name' },
-          { data: 'symbol' },
-          { data: 'price_usd', type: 'num-fmt' },
-          { data: 'price_eur', type: 'num-fmt' },
-          { data: 'percent_change_1h', type: 'html-num-fmt' },
-          { data: 'percent_change_24h', type: 'html-num-fmt' },
-          { data: 'percent_change_7d', type: 'html-num-fmt' },
+          {data: 'rank'},
+          {data: 'name'},
+          {data: 'symbol'},
+          {data: 'price_usd', type: 'num-fmt'},
+          {data: 'price_eur', type: 'num-fmt'},
+          {data: 'percent_change_1h', type: 'html-num-fmt'},
+          {data: 'percent_change_24h', type: 'html-num-fmt'},
+          {data: 'percent_change_7d', type: 'html-num-fmt'},
           // format market cap
-          { data: 'market_cap_usd', render: $.fn.dataTable.render.number(',', '.', 0, '$') },
+          {data: 'market_cap_usd', render: $.fn.dataTable.render.number(',', '.', 0, '$')},
         ],
       });
-      // reload data every 30 seconds
+      // reload data every 60 seconds
       setInterval(() => {
         table.ajax.reload(null, false); // user paging is not reset on reload
-      }, 30000);
+      }, 60000);
     },
   };
 </script>
 <style>
-  #container {
+  #container{
     max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
   }
-
   tr {
     text-align: right;
   }
 
   td:nth-child(2), td:nth-child(3),
-  th:nth-child(2), th:nth-child(3){
+  th:nth-child(2), th:nth-child(3) {
     text-align: left;
   }
 
-  td:nth-child(1), th:nth-child(1), th:nth-child(6), th:nth-child(7), th:nth-child(8){
+  td:nth-child(1), th:nth-child(1), th:nth-child(6), th:nth-child(7), th:nth-child(8) {
     text-align: center;
   }
 
-
-  tr.child{
+  .dtr-details{
     text-align: left;
   }
+
+  .dtr-title{
+    text-align: left;
+  }
+  .dtr-data{
+    text-align: right;
+    padding-left: 20px;
+    float: right;
+  }
+
 
   .textRight {
     text-align: right;

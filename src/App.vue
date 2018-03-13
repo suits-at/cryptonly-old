@@ -95,8 +95,7 @@
     -moz-osx-font-smoothing: grayscale;
   }
   .md-drawer {
-    width: 230px;
-    max-width: calc(100vw - 125px);
+    width: 210px;
   }
 
   /* show left arrow icon in menu only on xsmall devices */
