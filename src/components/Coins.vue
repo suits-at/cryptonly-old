@@ -1,10 +1,10 @@
 <template>
   <div id="container">
-    <div v-if="globalStats" id="globals">
-      <p><strong>Total Market Cap:</strong> ${{globalStats.total_market_cap_usd}}</p>
-      <p><strong>24h Volume:</strong> ${{globalStats.total_24h_volume_usd}}</p>
-      <p><strong>BTC Dominance:</strong> {{globalStats.bitcoin_percentage_of_market_cap}}%</p>
-    </div>
+      <div v-if="globalStats" class="md-layout" id="globals">
+        <div class="md-layout-item"><p><strong>Total Market Cap:</strong> ${{globalStats.total_market_cap_usd}}</p></div>
+        <div class="md-layout-item"><p class="textCenter"><strong>24h Volume:</strong> ${{globalStats.total_24h_volume_usd}}</p></div>
+        <div class="md-layout-item"><p class="textRight"><strong>BTC Dominance:</strong> {{globalStats.bitcoin_percentage_of_market_cap}}%</p></div>
+      </div>
     <div>
       <table id="marketCap" class="display" cellspacing="0" width="100%">
         <thead>
@@ -217,8 +217,8 @@
     text-align: right;
   }
 
-  .textLeft {
-    text-align: left;
+  .textCenter {
+    text-align: center;
   }
 
   .negative {
@@ -231,43 +231,5 @@
 
   .dataTables_wrapper {
     padding-top: 1.2rem;
-  }
-
-  /* adjust market cap styling*/
-  #globals {
-    display: grid;
-    grid-template-columns: repeat(1, var(--width));
-  }
-
-  @media screen and (min-width: 30em) and (max-width: 75em) {
-    #globals {
-      grid-template-columns: repeat(3, 1fr);
-    }
-
-    #globals p:nth-child(2) {
-      text-align: center;
-    }
-
-    #globals p:nth-child(3) {
-      text-align: right;
-    }
-  }
-
-  @media screen and (min-width: 75em) {
-    :root {
-      --width: calc((1200px) / 3);
-    }
-
-    #globals {
-      grid-template-columns: repeat(3, var(--width));
-    }
-
-    #globals p:nth-child(2) {
-      text-align: center;
-    }
-
-    #globals p:nth-child(3) {
-      text-align: right;
-    }
   }
 </style>
