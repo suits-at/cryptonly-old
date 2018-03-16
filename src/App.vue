@@ -26,13 +26,43 @@
 
         <md-list>
           <md-list-item to="/" @click="toggleMenu">
-            <md-icon>move_to_inbox</md-icon>
+            <md-icon>home</md-icon>
             <span class="md-list-item-text">Overview</span>
           </md-list-item>
 
-          <md-list-item to="/hello" @click="toggleMenu">
-            <md-icon>error</md-icon>
+          <md-list-item to="/watchlist" @click="toggleMenu">
+            <md-icon>visibility</md-icon>
+            <span class="md-list-item-text">Watchlist</span>
+          </md-list-item>
+
+          <md-list-item to="/portfolio" @click="toggleMenu">
+            <md-icon>assessment</md-icon>
             <span class="md-list-item-text">Portfolio</span>
+          </md-list-item>
+
+          <md-list-item to="/gainers" @click="toggleMenu">
+            <md-icon>trending_up</md-icon>
+            <span class="md-list-item-text">Gainers</span>
+          </md-list-item>
+
+          <md-list-item to="/loosers" @click="toggleMenu">
+            <md-icon>trending_down</md-icon>
+            <span class="md-list-item-text">Loosers</span>
+          </md-list-item>
+
+          <md-list-item to="/profile" @click="toggleMenu">
+            <md-icon>account_circle</md-icon>
+            <span class="md-list-item-text">Profile</span>
+          </md-list-item>
+
+          <md-list-item to="/settings" @click="toggleMenu">
+            <md-icon>settings</md-icon>
+            <span class="md-list-item-text">Settings</span>
+          </md-list-item>
+
+          <md-list-item to="/information" @click="toggleMenu">
+            <md-icon>info</md-icon>
+            <span class="md-list-item-text">Information</span>
           </md-list-item>
         </md-list>
       </md-app-drawer>
@@ -44,27 +74,6 @@
     </md-app>
   </div>
 </template>
-
-<!--<template>
-  <div id="app">
-    <header>
-      <span>cryptonly</span>
-      <a href="https://github.com/suits-at/cryptonly" title="Github">
-        <font-awesome-icon :icon="['fab', 'github']" title="Github"/>
-      </a>
-    </header>
-    <main>
-      &lt;!&ndash;<img src="./assets/logo.png" alt="Vue.js PWA">&ndash;&gt;
-      <router-view></router-view>
-    </main>
-    <footer>
-      <span>cryptonly</span>
-      <a href="https://github.com/suits-at/cryptonly" title="Github">
-        <font-awesome-icon :icon="['fab', 'github']" title="Github"/>
-      </a>
-    </footer>
-  </div>
-</template>-->
 <script>
 
   import fontawesome from '@fortawesome/fontawesome';
@@ -104,4 +113,8 @@
       display: none;
     }
   }
+  .router-link-exact-active{
+    background: rgba(0,0,0,0.12);
+  }
+
 </style>
