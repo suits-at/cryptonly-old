@@ -117,4 +117,7 @@
     background: rgba(0,0,0,0.12);
   }
 
+  .md-content.md-app-content{
+    min-height: 400px;
+  }
 </style>
