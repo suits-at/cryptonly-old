@@ -1,12 +1,10 @@
 <template>
   <div id="container">
-    <div v-if="globalStats" class="md-layout" id="globals">
-      <div class="md-layout-item"><p><strong>Total Market Cap:</strong> ${{globalStats.total_market_cap_usd}}</p></div>
-      <div class="md-layout-item"><p class="textCenter"><strong>24h Volume:</strong>
-        ${{globalStats.total_24h_volume_usd}}</p></div>
-      <div class="md-layout-item"><p class="textRight"><strong>BTC Dominance:</strong>
-        {{globalStats.bitcoin_percentage_of_market_cap}}%</p></div>
-    </div>
+    <md-tabs md-sync-route class="md-transparent" md-alignment="right">
+      <md-tab id="tab-gainers-1h" md-label="1h" to="/gainers1h"></md-tab>
+      <md-tab id="tab-gainers-24h" md-label="24h" to="/gainers24h"></md-tab>
+      <md-tab id="tab-gainers-7d" md-label="7d" to="/gainers7d"></md-tab>
+    </md-tabs>
     <div>
       <table id="marketCap" class="display" cellspacing="0" width="100%">
         <thead>
@@ -37,17 +35,10 @@
         </tbody>
       </table>
     </div>
-
-    <div v-if="errors && errors.length">
-      <div v-for="error of errors">
-        {{error.message}}
-      </div>
-    </div>
   </div>
 </template>
 
 <script>
-  import axios from 'axios';
   import * as $ from 'jquery';
   import 'datatables.net-dt/css/jquery.dataTables.css';
   import 'datatables.net-responsive';
@@ -56,24 +47,6 @@
   import 'datatables.net-fixedheader-dt/css/fixedHeader.dataTables.min.css';
 
   export default {
-    data() {
-      return {
-        globalStats: [],
-        errors: [],
-      };
-    },
-    // Fetches posts when the component is created.
-    created() {
-      axios.get('https://api.coinmarketcap.com/v1/global/?convert=EUR')
-        .then((globalStats) => {
-          // add thousands seperator
-          this.globalStats = globalStats.data;
-          this.globalStats.total_market_cap_usd = this.globalStats.total_market_cap_usd.toLocaleString('en-US');
-          this.globalStats.total_24h_volume_usd = this.globalStats.total_24h_volume_usd.toLocaleString('en-US');
-        }).catch((e) => {
-        this.errors.push(e);
-      });
-    },
     mounted() {
       const table = $('#marketCap').DataTable({
         // load data from API via AJAX
@@ -89,7 +62,7 @@
         // stateDuration: 0,
         responsive: true,
         // paging: false,
-        order: [[ 5, 'desc' ]],
+        order: [[ 6, 'desc' ]],
         lengthMenu: [50],
         bLengthChange: false,
         dom: 't',

@@ -40,7 +40,7 @@
             <span class="md-list-item-text">Portfolio</span>
           </md-list-item>
 
-          <md-list-item to="/gainers" @click="toggleMenu">
+          <md-list-item to="/gainers1h" @click="toggleMenu">
             <md-icon>trending_up</md-icon>
             <span class="md-list-item-text">Gainers</span>
           </md-list-item>
