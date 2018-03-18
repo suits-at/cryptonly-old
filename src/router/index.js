@@ -1,7 +1,9 @@
 import Vue from "vue";
 import Router from "vue-router";
 import Coins from "@/components/Coins";
-import Gainers from "@/components/Gainers";
+import Gainers1h from "@/components/Gainers1h";
+import Gainers24h from "@/components/Gainers24h";
+import Gainers7d from "@/components/Gainers7d";
 import Information from "@/components/Information";
 import Loosers from "@/components/Loosers";
 import Portfolio from "@/components/Portfolio";
@@ -19,9 +21,19 @@ export default new Router({
       component: Coins
     },
     {
-      path: "/gainers",
-      name: "Gainers",
-      component: Gainers
+      path: "/gainers1h",
+      name: "Gainers1h",
+      component: Gainers1h
+    },
+    {
+      path: "/gainers24h",
+      name: "Gainers24h",
+      component: Gainers24h
+    },
+    {
+      path: "/gainers7d",
+      name: "Gainers7d",
+      component: Gainers7d
     },
     {
       path: "/information",
