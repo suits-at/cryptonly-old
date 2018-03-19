@@ -1,10 +1,13 @@
 <template>
   <div id="container">
-    <md-tabs md-sync-route class="md-transparent" md-alignment="right">
-      <md-tab id="tab-gainers-1h" md-label="1h" to="/gainers1h"></md-tab>
-      <md-tab id="tab-gainers-24h" md-label="24h" to="/gainers24h"></md-tab>
-      <md-tab id="tab-gainers-7d" md-label="7d" to="/gainers7d"></md-tab>
-    </md-tabs>
+    <md-toolbar class="md-transparent md-dense" md-elevation="3">
+      <h3 class="md-title" style="flex: 1">50 biggest gainers</h3>
+      <md-tabs md-sync-route class="md-transparent" md-alignment="right">
+        <md-tab id="tab-gainers-1h" md-label="1h" to="/gainers1h"></md-tab>
+        <md-tab id="tab-gainers-24h" md-label="24h" to="/gainers24h"></md-tab>
+        <md-tab id="tab-gainers-7d" md-label="7d" to="/gainers7d"></md-tab>
+      </md-tabs>
+    </md-toolbar>
     <div>
       <table id="marketCap" class="display" cellspacing="0" width="100%">
         <thead>

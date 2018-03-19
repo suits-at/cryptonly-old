@@ -45,7 +45,7 @@
             <span class="md-list-item-text">Gainers</span>
           </md-list-item>
 
-          <md-list-item to="/loosers" @click="toggleMenu">
+          <md-list-item to="/loosers1h" @click="toggleMenu">
             <md-icon>trending_down</md-icon>
             <span class="md-list-item-text">Loosers</span>
           </md-list-item>
@@ -117,7 +117,7 @@
     background: rgba(0,0,0,0.12);
   }
 
-  .md-content.md-app-content{
-    min-height: 400px;
+  .md-app{
+    min-height: 100vh;
   }
 </style>

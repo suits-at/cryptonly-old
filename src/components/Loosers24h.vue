@@ -1,11 +1,11 @@
 <template>
   <div id="container">
     <md-toolbar class="md-transparent md-dense" md-elevation="3">
-      <h3 class="md-title" style="flex: 1">50 biggest gainers</h3>
+      <h3 class="md-title" style="flex: 1">50 biggest loosers</h3>
       <md-tabs md-sync-route class="md-transparent" md-alignment="right">
-        <md-tab id="tab-gainers-1h" md-label="1h" to="/gainers1h"></md-tab>
-        <md-tab id="tab-gainers-24h" md-label="24h" to="/gainers24h"></md-tab>
-        <md-tab id="tab-gainers-7d" md-label="7d" to="/gainers7d"></md-tab>
+        <md-tab id="tab-loosers-1h" md-label="1h" to="/loosers1h"></md-tab>
+        <md-tab id="tab-loosers-24h" md-label="24h" to="/loosers24h"></md-tab>
+        <md-tab id="tab-loosers-7d" md-label="7d" to="/loosers7d"></md-tab>
       </md-tabs>
     </md-toolbar>
     <div>
@@ -65,7 +65,7 @@
         // stateDuration: 0,
         responsive: true,
         // paging: false,
-        order: [[ 7, 'desc' ]],
+        order: [[ 6, 'asc' ]],
         lengthMenu: [50],
         bLengthChange: false,
         dom: 't',
@@ -74,7 +74,7 @@
           {responsivePriority: 1, targets: 0},
           {responsivePriority: 2, targets: 2},
           {responsivePriority: 3, targets: 3},
-          {responsivePriority: 3, targets: 7},
+          {responsivePriority: 3, targets: 6},
           // format dollar price to:
           // save amount of decimals
           // show thousand seperator

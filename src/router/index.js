@@ -5,7 +5,9 @@ import Gainers1h from "@/components/Gainers1h";
 import Gainers24h from "@/components/Gainers24h";
 import Gainers7d from "@/components/Gainers7d";
 import Information from "@/components/Information";
-import Loosers from "@/components/Loosers";
+import Loosers1h from "@/components/Loosers1h";
+import Loosers24h from "@/components/Loosers24h";
+import Loosers7d from "@/components/Loosers7d";
 import Portfolio from "@/components/Portfolio";
 import Profile from "@/components/Profile";
 import Settings from "@/components/Settings";
@@ -36,14 +38,24 @@ export default new Router({
       component: Gainers7d
     },
     {
+      path: "/loosers1h",
+      name: "Loosers1h",
+      component: Loosers1h
+    },
+    {
+      path: "/loosers24h",
+      name: "Loosers24h",
+      component: Loosers24h
+    },
+    {
+      path: "/loosers7d",
+      name: "Loosers7d",
+      component: Loosers7d
+    },
+    {
       path: "/information",
       name: "Information",
       component: Information
-    },
-    {
-      path: "/loosers",
-      name: "Loosers",
-      component: Loosers
     },
     {
       path: "/portfolio",
