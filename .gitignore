@@ -12,3 +12,4 @@ yarn-error.log*
 *.njsproj
 *.sln
 /.npmrc
+/static/json/firebaseConfig.json
