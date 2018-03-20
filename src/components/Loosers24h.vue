@@ -14,7 +14,7 @@
         <tr class="textRight">
           <th>#</th>
           <th>Name</th>
-          <th>Symbol</th>
+          <th>Sym</th>
           <th>Price $</th>
           <th>Price €</th>
           <th>1h</th>
@@ -220,5 +220,10 @@
 
   .dataTables_wrapper {
     padding-top: 1.2rem;
+  }
+
+  /* override table padding from datatables.css */
+  table.dataTable tbody th, table.dataTable tbody td{
+    padding: 8px 4px;
   }
 </style>

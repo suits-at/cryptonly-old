@@ -14,7 +14,7 @@
         <tr class="textRight">
           <th>#</th>
           <th>Name</th>
-          <th>Symbol</th>
+          <th>Sym</th>
           <th>Price $</th>
           <th>Price €</th>
           <th>1h</th>
