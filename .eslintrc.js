@@ -2,8 +2,8 @@
 
 module.exports = {
   root: true,
-  parser: 'babel-eslint',
   parserOptions: {
+    parser: 'babel-eslint',
     sourceType: 'module'
   },
   env: {
@@ -12,11 +12,12 @@ module.exports = {
   },
   extends: [
     'airbnb-base',
+    "plugin:vue/strongly-recommended",
     'plugin:prettier/recommended'
   ],
   // required to lint *.vue files
   plugins: [
-    'html'
+    'vue'
   ],
   // check if imports actually resolve
   'settings': {
