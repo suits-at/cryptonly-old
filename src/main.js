@@ -5,6 +5,8 @@ import VueMaterial from "vue-material";
 // only import components used, e.g.: import { MdButton, MdContent, MdTabs } from 'vue-material/dist/components'
 import "vue-material/dist/vue-material.min.css";
 import "vue-material/dist/theme/black-green-light.css";
+import "../node_modules/ag-grid/dist/styles/ag-grid.css";
+import "../node_modules/ag-grid/dist/styles/ag-theme-material.css";
 import App from "./App";
 import router from "./router";
 import "../node_modules/normalize.css/normalize.css";

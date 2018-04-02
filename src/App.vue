@@ -2,34 +2,34 @@
   <div class="page-container">
     <md-app>
       <md-app-toolbar class="md-primary">
-        <md-button 
-          class="md-icon-button show-small" 
+        <md-button
+          class="md-icon-button show-small"
           @click="menuVisible = !menuVisible">
           <md-icon>menu</md-icon>
         </md-button>
         <span class="md-title">cryptonly</span>
         <div class="md-toolbar-section-end">
-          <a 
-            href="https://github.com/suits-at/cryptonly" 
+          <a
+            href="https://github.com/suits-at/cryptonly"
             title="Github">
-            <md-icon><font-awesome-icon 
-              :icon="['fab', 'github']" 
+            <md-icon><font-awesome-icon
+              :icon="['fab', 'github']"
               title="Github"/></md-icon>
           </a>
         </div>
       </md-app-toolbar>
 
-      <md-app-drawer 
-        :md-active.sync="menuVisible" 
+      <md-app-drawer
+        :md-active.sync="menuVisible"
         md-permanent="full">
-        <md-toolbar 
-          class="md-transparent" 
+        <md-toolbar
+          class="md-transparent"
           md-elevation="1">
           <span>Navigation</span>
 
           <div class="md-toolbar-section-end show-small">
-            <md-button 
-              class="md-icon-button md-dense" 
+            <md-button
+              class="md-icon-button md-dense"
               @click="toggleMenu">
               <md-icon>keyboard_arrow_left</md-icon>
             </md-button>
@@ -37,57 +37,57 @@
         </md-toolbar>
 
         <md-list>
-          <md-list-item 
-            to="/" 
+          <md-list-item
+            to="/"
             @click="toggleMenu">
             <md-icon>home</md-icon>
             <span class="md-list-item-text">Overview</span>
           </md-list-item>
 
-          <md-list-item 
-            to="/watchlist" 
+          <md-list-item
+            to="/watchlist"
             @click="toggleMenu">
             <md-icon>visibility</md-icon>
             <span class="md-list-item-text">Watchlist</span>
           </md-list-item>
 
-          <md-list-item 
-            to="/portfolio" 
+          <md-list-item
+            to="/portfolio"
             @click="toggleMenu">
             <md-icon>assessment</md-icon>
             <span class="md-list-item-text">Portfolio</span>
           </md-list-item>
 
-          <md-list-item 
-            to="/gainers1h" 
+          <md-list-item
+            to="/gainers1h"
             @click="toggleMenu">
             <md-icon>trending_up</md-icon>
             <span class="md-list-item-text">Gainers</span>
           </md-list-item>
 
-          <md-list-item 
-            to="/loosers1h" 
+          <md-list-item
+            to="/loosers1h"
             @click="toggleMenu">
             <md-icon>trending_down</md-icon>
             <span class="md-list-item-text">Loosers</span>
           </md-list-item>
 
-          <md-list-item 
-            to="/profile" 
+          <md-list-item
+            to="/profile"
             @click="toggleMenu">
             <md-icon>account_circle</md-icon>
             <span class="md-list-item-text">Profile</span>
           </md-list-item>
 
-          <md-list-item 
-            to="/settings" 
+          <md-list-item
+            to="/settings"
             @click="toggleMenu">
             <md-icon>settings</md-icon>
             <span class="md-list-item-text">Settings</span>
           </md-list-item>
 
-          <md-list-item 
-            to="/information" 
+          <md-list-item
+            to="/information"
             @click="toggleMenu">
             <md-icon>info</md-icon>
             <span class="md-list-item-text">Information</span>
@@ -115,7 +115,8 @@ export default {
     FontAwesomeIcon
   },
   data: () => ({
-    menuVisible: false
+    menuVisible: false,
+    gridOptions: null
   }),
   methods: {
     toggleMenu() {

@@ -14,6 +14,8 @@
     "@fortawesome/fontawesome": "^1.1.3",
     "@fortawesome/fontawesome-free-brands": "^5.0.6",
     "@fortawesome/vue-fontawesome": "^0.0.22",
+    "ag-grid": "^17.0.0",
+    "ag-grid-vue": "^17.0.0",
     "axios": "^0.17.1",
     "datatables.net": "^1.10.16",
     "datatables.net-dt": "^1.10.16",
@@ -25,7 +27,8 @@
     "normalize.css": "^8.0.0",
     "vue": "^2.5.2",
     "vue-material": "^1.0.0-beta-7",
-    "vue-router": "^3.0.1"
+    "vue-router": "^3.0.1",
+    "vue-tables-2": "^1.4.0"
   },
   "devDependencies": {
     "autoprefixer": "^7.2.6",
