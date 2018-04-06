@@ -7,11 +7,6 @@
 
 <script>
 import * as $ from "jquery";
-import "datatables.net-dt/css/jquery.dataTables.css";
-import "datatables.net-responsive";
-import "datatables.net-responsive-dt/css/responsive.dataTables.min.css";
-import "datatables.net-fixedheader";
-import "datatables.net-fixedheader-dt/css/fixedHeader.dataTables.min.css";
 import LoosersToolbar from "./LoosersToolbar";
 import DataTable from "./DataTable";
 
