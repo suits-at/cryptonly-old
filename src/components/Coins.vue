@@ -10,41 +10,7 @@
       <div class="md-layout-item"><p class="textRight"><strong>BTC Dominance:</strong>
         {{ globalStats.bitcoin_percentage_of_market_cap }}%</p></div>
     </div>
-    <div>
-      <table
-        id="marketCap"
-        class="display"
-        cellspacing="0"
-        width="100%">
-        <thead>
-          <tr class="textRight">
-            <th>#</th>
-            <th>Name</th>
-            <th>Sym</th>
-            <th>Price $</th>
-            <th>Price €</th>
-            <th>1h</th>
-            <th>24h</th>
-            <th>7d</th>
-            <th>Market Cap</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td/>
-            <td/>
-            <td/>
-            <td/>
-            <td/>
-            <td/>
-            <td/>
-            <td/>
-            <td/>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
+    <data-table/>
     <div v-if="errors && errors.length">
       <div
         v-for="error of errors"
@@ -63,8 +29,10 @@ import "datatables.net-responsive";
 import "datatables.net-responsive-dt/css/responsive.dataTables.min.css";
 import "datatables.net-fixedheader";
 import "datatables.net-fixedheader-dt/css/fixedHeader.dataTables.min.css";
+import DataTable from "./DataTable";
 
 export default {
+  components: { DataTable },
   data() {
     return {
       globalStats: [],

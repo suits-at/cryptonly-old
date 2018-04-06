@@ -1,63 +1,7 @@
 <template>
   <div id="container">
-    <md-toolbar 
-      class="md-transparent md-dense" 
-      md-elevation="3">
-      <h3 
-        class="md-title" 
-        style="flex: 1">Loosers</h3>
-      <md-tabs 
-        md-sync-route 
-        class="md-transparent" 
-        md-alignment="right">
-        <md-tab 
-          id="tab-loosers-1h" 
-          md-label="1h" 
-          to="/loosers1h"/>
-        <md-tab 
-          id="tab-loosers-24h" 
-          md-label="24h" 
-          to="/loosers24h"/>
-        <md-tab 
-          id="tab-loosers-7d" 
-          md-label="7d" 
-          to="/loosers7d"/>
-      </md-tabs>
-    </md-toolbar>
-    <div>
-      <table 
-        id="marketCap" 
-        class="display" 
-        cellspacing="0" 
-        width="100%">
-        <thead>
-          <tr class="textRight">
-            <th>#</th>
-            <th>Name</th>
-            <th>Sym</th>
-            <th>Price $</th>
-            <th>Price €</th>
-            <th>1h</th>
-            <th>24h</th>
-            <th>7d</th>
-            <th>Market Cap</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td/>
-            <td/>
-            <td/>
-            <td/>
-            <td/>
-            <td/>
-            <td/>
-            <td/>
-            <td/>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+    <loosers-toolbar/>
+    <data-table/>
   </div>
 </template>
 
@@ -68,8 +12,11 @@ import "datatables.net-responsive";
 import "datatables.net-responsive-dt/css/responsive.dataTables.min.css";
 import "datatables.net-fixedheader";
 import "datatables.net-fixedheader-dt/css/fixedHeader.dataTables.min.css";
+import LoosersToolbar from "./LoosersToolbar";
+import DataTable from "./DataTable";
 
 export default {
+  components: { DataTable, LoosersToolbar },
   mounted() {
     const table = $("#marketCap").DataTable({
       // load data from API via AJAX
