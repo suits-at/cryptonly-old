@@ -15,6 +15,7 @@
     "@fortawesome/fontawesome-free-brands": "^5.0.6",
     "@fortawesome/vue-fontawesome": "^0.0.22",
     "axios": "^0.17.1",
+    "bootstrap": "^4.1.0",
     "datatables.net": "^1.10.16",
     "datatables.net-dt": "^1.10.16",
     "datatables.net-fixedheader": "^3.1.3",
