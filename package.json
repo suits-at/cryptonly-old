@@ -25,7 +25,7 @@
     "jquery": "^3.3.1",
     "normalize.css": "^8.0.0",
     "vue": "^2.5.2",
-    "vue-material": "^1.0.0-beta-7",
+    "vue-material": "^1.0.0-beta-8",
     "vue-router": "^3.0.1",
     "vue-tables-2": "^1.4.0"
   },
