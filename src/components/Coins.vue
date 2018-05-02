@@ -4,11 +4,11 @@
       v-if="globalStats"
       class="md-layout"
       id="globals">
-      <div class="md-layout-item"><p><strong>Total Market Cap:</strong> ${{ globalStats.total_market_cap_usd }}</p></div>
-      <div class="md-layout-item"><p class="textCenter"><strong>24h Volume:</strong>
-        ${{ globalStats.total_24h_volume_usd }}</p></div>
-      <div class="md-layout-item"><p class="textRight"><strong>BTC Dominance:</strong>
-        {{ globalStats.bitcoin_percentage_of_market_cap }}%</p></div>
+      <div class="md-layout-item"><strong>Total Market Cap:</strong> ${{ globalStats.total_market_cap_usd }}</div>
+      <div class="md-layout-item"><strong>24h Volume:</strong>
+        ${{ globalStats.total_24h_volume_usd }}</div>
+      <div class="md-layout-item"><strong>BTC Dominance:</strong>
+        {{ globalStats.bitcoin_percentage_of_market_cap }}%</div>
     </div>
     <data-table/>
     <div v-if="errors && errors.length">

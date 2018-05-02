@@ -48,6 +48,8 @@ export default {
 <style>
 #container {
   max-width: 1200px;
+  margin: 0 auto;
+  padding-top: 10px;
 }
 
 .textRight {
