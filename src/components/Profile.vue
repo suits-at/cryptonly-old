@@ -13,14 +13,7 @@
     <v-client-table
       :columns="columns"
       :data="coins"
-      :options="options">
-
-      <!--<div-->
-      <!--slot="child_row"-->
-      <!--slot-scope="props">-->
-      <!--This is a {{ props.row.name }} special-->
-      <!--</div>-->
-    </v-client-table>
+      :options="options" />
   </div>
 </template>
 
@@ -29,6 +22,9 @@ import Vue from "vue";
 import axios from "axios";
 import { ClientTable } from "vue-tables-2";
 import "bootstrap/dist/css/bootstrap.css";
+import percentChange1h from "./percentChange1h";
+import percentChange24h from "./percentChange24h";
+import percentChange7d from "./percentChange7d";
 
 Vue.use(ClientTable, {}, false, "bootstrap4");
 
@@ -45,20 +41,25 @@ export default {
         "symbol",
         "price_usd",
         "price_eur",
-        "percent_change_1h",
-        "percent_change_24h",
-        "percent_change_7d",
+        "percentChange1h",
+        "percentChange24h",
+        "percentChange7d",
         "market_cap_usd"
       ],
       options: {
+        templates: {
+          percentChange1h,
+          percentChange24h,
+          percentChange7d
+        },
         headings: {
           rank: "#",
           name: "Name",
           price_usd: "Price $",
           price_eur: "Price €",
-          percent_change_1h: "1h",
-          percent_change_24h: "24h",
-          percent_change_7d: "7d",
+          percentChange1h: "1h",
+          percentChange24h: "24h",
+          percentChange7d: "7d",
           market_cap_usd: "Market Cap"
         },
         sortable: [
@@ -90,7 +91,7 @@ export default {
   created() {
     function getCoins() {
       return axios.get(
-        "https://api.coinmarketcap.com/v1/ticker/?convert=EUR&limit=50"
+        "https://api.coinmarketcap.com/v1/ticker/?convert=EUR&limit=100"
       );
     }
 
@@ -116,35 +117,12 @@ export default {
       .catch(e => {
         this.errors.push(e);
       });
-  }
+  },
+  methods: {}
 };
 </script>
 
 <style>
-/*.VuePagination {*/
-/*text-align: center;*/
-/*}*/
-
-/*.vue-pagination-ad {*/
-/*text-align: center;*/
-/*}*/
-
-/*.VueTables__child-row-toggler {*/
-/*width: 16px;*/
-/*height: 16px;*/
-/*line-height: 16px;*/
-/*display: block;*/
-/*margin: auto;*/
-/*text-align: center;*/
-/*}*/
-
-/*.VueTables__child-row-toggler--closed::before {*/
-/*content: "+";*/
-/*}*/
-
-/*.VueTables__child-row-toggler--open::before {*/
-/*content: "-";*/
-/*}*/
 .VueTables__search-field {
   display: flex;
 }
@@ -158,14 +136,6 @@ export default {
   padding-top: 10px;
 }
 
-.textRight {
-  text-align: right;
-}
-
-.textCenter {
-  text-align: center;
-}
-
 .negative {
   color: red;
 }
@@ -176,21 +146,6 @@ export default {
 tr {
   text-align: center;
 }
-
-/*td:nth-child(2),*/
-/*th:nth-child(2) {*/
-/*text-align: left;*/
-/*}*/
-
-/*th:nth-child(1),*/
-/*td:nth-child(1),*/
-/*th:nth-child(3),*/
-/*td:nth-child(3),*/
-/*th:nth-child(6),*/
-/*th:nth-child(7),*/
-/*th:nth-child(8) {*/
-/*text-align: center;*/
-/*}*/
 
 .table th,
 .table td {
