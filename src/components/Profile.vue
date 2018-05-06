@@ -1,6 +1,15 @@
 <template>
-  <div id="app">
-    <h3 class="vue-title">Vue Tables 2 Demo - Client Component</h3>
+  <div id="container">
+    <div
+      v-if="globals"
+      class="md-layout"
+      id="globals">
+      <div class="md-layout-item"><strong>Total Market Cap:</strong> ${{ globals.total_market_cap_usd }}</div>
+      <div class="md-layout-item"><strong>24h Volume:</strong>
+        ${{ globals.total_24h_volume_usd }}</div>
+      <div class="md-layout-item"><strong>BTC Dominance:</strong>
+        {{ globals.bitcoin_percentage_of_market_cap }}%</div>
+    </div>
     <v-client-table
       :columns="columns"
       :data="coins"
@@ -32,7 +41,6 @@ export default {
       errors: [],
       columns: [
         "rank",
-        "id",
         "name",
         "symbol",
         "price_usd",
@@ -53,8 +61,28 @@ export default {
           percent_change_7d: "7d",
           market_cap_usd: "Market Cap"
         },
-        sortable: ["rank", "name", "symbol"],
-        filterable: ["rank", "name", "symbol"],
+        sortable: [
+          "rank",
+          "name",
+          "symbol",
+          "price_usd",
+          "price_eur",
+          "percent_change_1h",
+          "percent_change_24h",
+          "percent_change_7d",
+          "market_cap_usd"
+        ],
+        filterable: [
+          "rank",
+          "name",
+          "symbol",
+          "price_usd",
+          "price_eur",
+          "percent_change_1h",
+          "percent_change_24h",
+          "percent_change_7d",
+          "market_cap_usd"
+        ],
         columnsDropdown: true
       }
     };
@@ -62,7 +90,7 @@ export default {
   created() {
     function getCoins() {
       return axios.get(
-        "https://api.coinmarketcap.com/v1/ticker/?convert=EUR&limit=30"
+        "https://api.coinmarketcap.com/v1/ticker/?convert=EUR&limit=-1"
       );
     }
 
@@ -122,5 +150,72 @@ export default {
 }
 .VueTables__limit-field {
   display: flex;
+}
+.table th,
+.table td {
+  padding: 0.35rem;
+}
+
+#container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-top: 10px;
+}
+
+.textRight {
+  text-align: right;
+}
+
+.textCenter {
+  text-align: center;
+}
+
+.negative {
+  color: red;
+}
+
+.positive {
+  color: limegreen;
+}
+tr {
+  text-align: right;
+}
+
+td:nth-child(2),
+td:nth-child(3),
+th:nth-child(2),
+th:nth-child(3) {
+  text-align: left;
+}
+
+td:nth-child(1),
+th:nth-child(1),
+th:nth-child(6),
+th:nth-child(7),
+th:nth-child(8) {
+  text-align: center;
+}
+
+.dtr-details {
+  text-align: left;
+}
+
+.dtr-title {
+  text-align: left;
+}
+.dtr-data {
+  text-align: right;
+  padding-left: 20px;
+  float: right;
+}
+
+.dataTables_wrapper {
+  padding-top: 1.2rem;
+}
+
+/* override table padding from datatables.css */
+table.dataTable tbody th,
+table.dataTable tbody td {
+  padding: 8px 4px;
 }
 </style>
