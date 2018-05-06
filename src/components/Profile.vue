@@ -15,11 +15,11 @@
       :data="coins"
       :options="options">
 
-      <div
-        slot="child_row"
-        slot-scope="props">
-        This is a {{ props.row.name }} special
-      </div>
+      <!--<div-->
+      <!--slot="child_row"-->
+      <!--slot-scope="props">-->
+      <!--This is a {{ props.row.name }} special-->
+      <!--</div>-->
     </v-client-table>
   </div>
 </template>
@@ -90,7 +90,7 @@ export default {
   created() {
     function getCoins() {
       return axios.get(
-        "https://api.coinmarketcap.com/v1/ticker/?convert=EUR&limit=-1"
+        "https://api.coinmarketcap.com/v1/ticker/?convert=EUR&limit=50"
       );
     }
 
@@ -121,39 +121,35 @@ export default {
 </script>
 
 <style>
-.VuePagination {
-  text-align: center;
-}
+/*.VuePagination {*/
+/*text-align: center;*/
+/*}*/
 
-.vue-pagination-ad {
-  text-align: center;
-}
+/*.vue-pagination-ad {*/
+/*text-align: center;*/
+/*}*/
 
-.VueTables__child-row-toggler {
-  width: 16px;
-  height: 16px;
-  line-height: 16px;
-  display: block;
-  margin: auto;
-  text-align: center;
-}
+/*.VueTables__child-row-toggler {*/
+/*width: 16px;*/
+/*height: 16px;*/
+/*line-height: 16px;*/
+/*display: block;*/
+/*margin: auto;*/
+/*text-align: center;*/
+/*}*/
 
-.VueTables__child-row-toggler--closed::before {
-  content: "+";
-}
+/*.VueTables__child-row-toggler--closed::before {*/
+/*content: "+";*/
+/*}*/
 
-.VueTables__child-row-toggler--open::before {
-  content: "-";
-}
+/*.VueTables__child-row-toggler--open::before {*/
+/*content: "-";*/
+/*}*/
 .VueTables__search-field {
   display: flex;
 }
 .VueTables__limit-field {
   display: flex;
-}
-.table th,
-.table td {
-  padding: 0.35rem;
 }
 
 #container {
@@ -178,44 +174,26 @@ export default {
   color: limegreen;
 }
 tr {
-  text-align: right;
-}
-
-td:nth-child(2),
-td:nth-child(3),
-th:nth-child(2),
-th:nth-child(3) {
-  text-align: left;
-}
-
-td:nth-child(1),
-th:nth-child(1),
-th:nth-child(6),
-th:nth-child(7),
-th:nth-child(8) {
   text-align: center;
 }
 
-.dtr-details {
-  text-align: left;
-}
+/*td:nth-child(2),*/
+/*th:nth-child(2) {*/
+/*text-align: left;*/
+/*}*/
 
-.dtr-title {
-  text-align: left;
-}
-.dtr-data {
-  text-align: right;
-  padding-left: 20px;
-  float: right;
-}
+/*th:nth-child(1),*/
+/*td:nth-child(1),*/
+/*th:nth-child(3),*/
+/*td:nth-child(3),*/
+/*th:nth-child(6),*/
+/*th:nth-child(7),*/
+/*th:nth-child(8) {*/
+/*text-align: center;*/
+/*}*/
 
-.dataTables_wrapper {
-  padding-top: 1.2rem;
-}
-
-/* override table padding from datatables.css */
-table.dataTable tbody th,
-table.dataTable tbody td {
-  padding: 8px 4px;
+.table th,
+.table td {
+  padding: 0.15rem;
 }
 </style>
